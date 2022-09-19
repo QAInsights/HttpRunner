@@ -1,0 +1,63 @@
+config:
+  name: "ReqRes"
+  variables:
+    PROTOCOL: https
+    BASEURL: reqres.in
+  base_url: ${PROTOCOL}://${BASEURL}
+
+teststeps:
+- 
+  name: T00_GET_ListUsers
+  request:
+    method: GET
+    url: /api/users?page=1
+    headers: 
+      Content-Type: "application/json"
+      X-User: "httprunner"
+  extract:
+    users_count: "body.length(data)"
+    first_user_email: "body.data[1].email"
+    all_users_avatar: "body.data[].avatar"
+  validate:
+    - eq: ["status_code", 200]
+- 
+  name: T10_POST_CreateUser
+  request:
+    method: POST
+    url: /api/users
+    headers: 
+      Content-Type: "application/json"
+      X-User: "httprunner"
+    data:
+      {"name":"morpheus","job":"leader"}
+  extract:
+    user_id: "body.id"
+    user_created_data: "body.createdAt"
+  validate:
+    - eq: ["status_code", 201]
+-
+  name: T20_PUT_User
+  request:
+    method: PUT
+    url: /api/users/${user_id}
+    headers: 
+      Content-Type: "application/json"
+      X-User: "httprunner"
+    data:
+      {"name":"morpheus","job":"resident"}
+  extract:
+    user_updated_data: "body.updatedAt"
+  validate:
+    - eq: ["status_code", 200]
+
+-
+  name: T30_DELETE_CreateUser
+  request:
+    method: DELETE
+    url: /api/users/${user_id}
+    headers: 
+      Content-Type: "application/json"
+      X-User: "httprunner"
+    data:
+  validate:
+    - eq: ["status_code", 204]

@@ -1,0 +1,54 @@
+config:
+  name: "ReqRes"
+  variables:
+    PROTOCOL: https
+    BASEURL: reqres.in
+    inputfile: ./app/testcases/reqres_data.csv
+  parameters:
+    user-job: ${parameterize($inputfile)}
+  parameters_setting:
+    strategies:
+      user-job:
+        name: "user-job"
+  base_url: ${PROTOCOL}://${BASEURL}
+
+
+teststeps:
+- 
+  name: T10_POST_CreateUser
+  request:
+    method: POST
+    url: /api/users
+    headers: 
+      Content-Type: "application/json"
+    data:
+      {"name":"${user}","job":"${job}"}
+  extract:
+    user_id: "body.id"
+    user_created_data: "body.createdAt"
+  validate:
+    - eq: ["status_code", 201]
+-
+  name: T20_PUT_User
+  request:
+    method: PUT
+    url: /api/users/${user_id}
+    headers: 
+      Content-Type: "application/json"
+    data:
+      {"name":"${user}","job":"${job}"}
+  extract:
+    user_updated_data: "body.updatedAt"
+  validate:
+    - eq: ["status_code", 200]
+
+-
+  name: T30_DELETE_CreateUser
+  request:
+    method: DELETE
+    url: /api/users/${user_id}
+    headers: 
+      Content-Type: "application/json"
+    data:
+  validate:
+    - eq: ["status_code", 204]

@@ -1,0 +1,26 @@
+config:
+    name: "Example"
+    variables:
+        PROTOCOL: https
+        BASEURL: www.example.com
+    base_url: ${PROTOCOL}://${BASEURL}
+
+teststeps:
+-
+    name: T00_Example
+    request:
+        method: GET
+        url: ${PROTOCOL}://${BASEURL}
+    extract:
+        title: <title>(.*)</title>
+        paragraph: <p>(.*)</p>
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: T00_Example_404
+    request:
+        method: GET
+        url: ${PROTOCOL}://${BASEURL}/404
+    validate:
+        - eq: ["status_code", 404]
+
