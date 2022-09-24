@@ -39,6 +39,19 @@ hrp -v
 hrp startproject mytest
 ```
 
+## Hello, Load Test!
+```
+hrp run example.yml 
 ```
 
+```
+hrp run example.yml --http-stat
+```
+
+```
+hrp run example.yml --gen-html-report
+```
+
+```
+hrp boom example.yml --spawn-count 10 --spawn-rate 1
 ```
