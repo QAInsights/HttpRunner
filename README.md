@@ -22,6 +22,8 @@ rm hrp-v4.2.0-linux-amd64.tar.gz
 ```
 
 ```
+chmod +x hrp
+
 sudo mv hrp /usr/bin
 ```
 
