@@ -52,6 +52,7 @@ hrp run example.yml --http-stat
 hrp run example.yml --gen-html-report
 ```
 
+> performance summary data is printed every 3 seconds
 ```
 hrp boom example.yml --spawn-count 10 --spawn-rate 1
 ```
