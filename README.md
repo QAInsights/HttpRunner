@@ -56,3 +56,9 @@ hrp run example.yml --gen-html-report
 ```
 hrp boom example.yml --spawn-count 10 --spawn-rate 1
 ```
+
+## Convert
+
+```
+hrp convert demo.har --to-pytest
+```
